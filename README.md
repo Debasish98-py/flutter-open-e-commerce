@@ -9,5 +9,5 @@ Single vendor e-commerce built with flutter
 - Cart
 - Checkout
 
-#Seller App Page
+#Saller App Page
 - Manage products

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
@@ -22,15 +24,19 @@ class Button extends StatelessWidget {
       ),*/
       child: RaisedButton.icon(
         onPressed: () {},
-        color: Colors.yellow,
+        color: Colors.greenAccent,
         icon: Icon(
           icon,
-          size: 20,
+          size: 25,
           color: Colors.blue,
         ),
         label: Text(
           buttonName,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ),
     );
