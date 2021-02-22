@@ -20,10 +20,11 @@ class SignIn extends StatelessWidget {
               Flexible(
                 child: Center(
                   child: Text(
-                    'ShopLift',
+                    'Fast-Buy',
                     style: TextStyle(
-                      color: Colors.pinkAccent,
+                      color: Colors.white,
                       fontSize: 60,
+                      fontFamily: 'Akaya Kanadaka',
                       fontWeight: FontWeight.bold,
                     ),
                   ),

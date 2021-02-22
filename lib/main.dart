@@ -15,9 +15,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'SignIn',
+      initialRoute: 'WelcomePage',
       routes: {
+        'WelcomePage': (context) => WelcomePage(),
         'SignIn': (context) => SignIn(),
       },
     );
