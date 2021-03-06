@@ -92,8 +92,24 @@ class SignIn extends StatelessWidget {
                     height: 5,
                   ),
                   Button(
-                      buttonName: 'Login with Facebook',
-                      icon: FontAwesomeIcons.facebook),
+                    buttonName: 'Login with Facebook',
+                    icon: FontAwesomeIcons.facebook,
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      FontAwesomeIcons.google,
+                      size: 25,
+                    ),
+                    label: Text(
+                      "Signin with Google",
+                      style: TextStyle(
+                        fontFamily: 'Akaya Kanadaka',
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(

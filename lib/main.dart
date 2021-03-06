@@ -17,10 +17,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'WelcomePage',
+      initialRoute: 'IphoneSE',
       routes: {
         'WelcomePage': (context) => WelcomePage(),
         'SignIn': (context) => SignIn(),
+        'HomePage': (context) => HomePage(),
+        'IphoneSE': (context) => IphoneSE(),
       },
     );
   }
