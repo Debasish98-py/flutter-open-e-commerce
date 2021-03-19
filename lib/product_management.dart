@@ -132,6 +132,7 @@ class _AddDataState extends State<AddData> {
       'manufacturer': manufacturer,
       'inStock': inStock,
     };
+    FirebaseFirestore.instance.collection("Products").add(product);
 
   }
 }
