@@ -1,17 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:opencommerce/widgets/text-input-field.dart';
 import 'package:opencommerce/widgets/password-input.dart';
-import 'package:opencommerce/widgets/login-signup-button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:opencommerce/widgets/widgets.dart';
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   //build and alert dialog to display some errors
   Future<void> _alertDialogBuilder(String error) async {
     return showDialog(
@@ -35,11 +35,11 @@ class _SignInState extends State<SignIn> {
   }
 
   //Create a new user account
-  Future<String> _signIn() async {
+  Future<String> _signUp() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _signInEmail,
-        password: _signInPassword,
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _registerEmail,
+        password: _registerPassword,
       );
       return null;
     } on FirebaseAuthException catch (e) {
@@ -57,27 +57,30 @@ class _SignInState extends State<SignIn> {
   void _submitForm() async {
     //set the form to loading state
     setState(() {
-      _signInFormLoading = true;
+      _signUpFormLoading = true;
     });
 
     //Run the create account method
-    String _signInFeedback = await _signIn();
+    String _createAccountFeedback = await _signUp();
 
     //If the string i not null, we get error while creating account
-    if (_signInFeedback != null) {
-      _alertDialogBuilder(_signInFeedback);
+    if (_createAccountFeedback != null) {
+      _alertDialogBuilder(_createAccountFeedback);
 
       //Set the form to regular state(not loading)
       setState(() {
-        _signInFormLoading = false;
+        _signUpFormLoading = false;
       });
+    }else{
+      //The string was null, user is logged in
+      Navigator.pop(context);
     }
   }
 
-  bool _signInFormLoading = false;
+  bool _signUpFormLoading = false;
 
-  String _signInEmail = '';
-  String _signInPassword = '';
+  String _registerEmail = '';
+  String _registerPassword = '';
 
   FocusNode _passwordFocusNode;
 
@@ -125,90 +128,34 @@ class _SignInState extends State<SignIn> {
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.next,
                       onChanged: (value) {
-                        _signInEmail = value;
+                        _registerEmail = value;
                       },
                     ),
                     PasswordInput(
-                      icon: FontAwesomeIcons.lock,
-                      hint: 'Password',
-                      inputType: TextInputType.name,
-                      inputAction: TextInputAction.done,
-                      onChanged: (value) {
-                        _signInPassword = value;
-                      },
-                      focusNode: _passwordFocusNode,
-                      onSubmitted: (value) {
-                        _submitForm();
-                      },
-                    ),
+                        icon: FontAwesomeIcons.lock,
+                        hint: 'Password',
+                        inputType: TextInputType.name,
+                        inputAction: TextInputAction.done,
+                        onChanged: (value) {
+                          _registerPassword = value;
+                        },
+                        focusNode: _passwordFocusNode,
+                        onSubmitted: (value) {
+                          _submitForm();
+                        }),
                     SizedBox(
                       height: 10,
                     ),
                     CustomBtn(
-                      text: "Log In",
+                      text: "Sign Up",
                       onPressed: () {
                         _submitForm();
                       },
-                      isLoading: _signInFormLoading,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ForgotPassword'),
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      isLoading: _signUpFormLoading,
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                GoogleSignIn(),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, 'SignUp'),
-                    child: Text(
-                      'Create New Account',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 1,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 60,
-                ),
+                Spacer(),
               ],
             ),
           ),

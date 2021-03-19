@@ -1,29 +1,68 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:opencommerce/controllers/product_controller.dart';
+import 'package:opencommerce/models/model.dart';
+import 'package:opencommerce/pages/product-view.dart';
 
-final List<String> products = ["iPhone SE", "iPhone XR", "iPhone XS"];
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
 
-class HomePage extends StatelessWidget {
+class _HomeViewState extends State<HomeView> {
+  final ProductController productController = ProductController();
+
+  @override
+  void initState() {
+    loadData();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text('Safe Buy'),
+          title: Text("Free Commerce"),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                }),
+            IconButton(icon: Icon(Icons.info), onPressed: () {
+              Navigator.pushNamed(context, 'AddData');
+            }),
+          ],
         ),
         body: Container(
           child: ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (BuildContext context, int index) {
-                var product = products[index];
-                return ListTile(
-                  leading: Image.asset("images/bgImage.jpg"),
-                  title: Text(product),
-                  subtitle: Text("Tiny iPhone"),
-                );
-              }),
+            itemCount: productController.products.length,
+            itemBuilder: (BuildContext context, int index) {
+              Product product = productController.products[index];
+              return ListTile(
+                leading: Image.network(product.imageUrl),
+                title: Text(product.name),
+                subtitle: Text("${product.price}"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductView(product)),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
+  }
+
+  void loadData() async {
+    await productController.getProducts();
+    setState(() {});
   }
 }

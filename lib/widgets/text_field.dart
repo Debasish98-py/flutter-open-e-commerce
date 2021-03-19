@@ -1,26 +1,20 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
-class PasswordInput extends StatelessWidget {
-  const PasswordInput({
+class TextIPField extends StatelessWidget {
+  const TextIPField({
     Key key,
-    @required this.icon,
+    this.icon,
     @required this.hint,
     this.inputType,
     this.inputAction,
-    this.onChanged,
-    this.onSubmitted,
-    this.focusNode,
+    this.controller,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  final Function(String) onChanged;
-  final Function(String) onSubmitted;
-  final FocusNode focusNode;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +30,7 @@ class PasswordInput extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
-            focusNode: focusNode,
-            onChanged: onChanged,
-            onSubmitted: onSubmitted,
+            controller: controller,
             style: TextStyle(
               color: Colors.yellow,
               fontWeight: FontWeight.bold,
@@ -63,7 +55,6 @@ class PasswordInput extends StatelessWidget {
                 fontStyle: FontStyle.italic,
               ),
             ),
-            obscureText: true,
             keyboardType: inputType,
             textInputAction: inputAction,
           ),

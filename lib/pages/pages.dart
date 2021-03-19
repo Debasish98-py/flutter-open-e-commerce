@@ -1,4 +1,5 @@
 export 'sign-in.dart';
-export 'welcome.dart';
+export 'landing_page.dart';
 export 'home-page.dart';
-export 'iPhone_SE.dart';
+export 'product-view.dart';
+export 'sign-up.dart';

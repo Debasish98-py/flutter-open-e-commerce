@@ -7,12 +7,18 @@ class TextInputField extends StatelessWidget {
     @required this.hint,
     this.inputType,
     this.inputAction,
+    this.onChanged,
+    this.onSubmitted,
+    this.focusNode,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final Function(String) onChanged;
+  final Function(String) onSubmitted;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,9 @@ class TextInputField extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
+            focusNode: focusNode,
+            onChanged: onChanged,
+            onSubmitted: onSubmitted,
             style: TextStyle(
               color: Colors.yellow,
               fontWeight: FontWeight.bold,
