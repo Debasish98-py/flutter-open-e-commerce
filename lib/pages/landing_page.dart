@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:opencommerce/pages/pages.dart';
 import 'package:opencommerce/pages/sign-in.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class LandingPage extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -65,6 +65,7 @@ class LandingPage extends StatelessWidget {
                   );
                 });
           }
+
           return Scaffold(
             body: Center(
               child: Text(

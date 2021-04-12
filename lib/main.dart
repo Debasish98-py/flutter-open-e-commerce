@@ -1,9 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:opencommerce/product_management.dart';
-
+import 'package:opencommerce/controllers/cart_controller.dart';
+import 'package:opencommerce/pages/home-page.dart';
+import 'package:opencommerce/pages/profile_add_edit.dart';
+import 'package:opencommerce/pages/video_player.dart';
 import 'pages/pages.dart';
+
+final cart = CartController();
 
 void main() {
   runApp(MyApp());
@@ -27,8 +31,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter e-commerce',
-      home:
-          initialized ? LandingPage() : Center(child: CircularProgressIndicator()),
+      home: initialized
+          ? LandingPage()
+          : Center(child: CircularProgressIndicator()),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
@@ -40,7 +45,10 @@ class _MyAppState extends State<MyApp> {
         'SignIn': (context) => SignIn(),
         'HomeView': (context) => HomeView(),
         'SignUp': (context) => SignUp(),
-        'AddData': (context) => AddData(),
+        'VideoPlayer': (context) => VideoPlayer(),
+        'ProfileUpdate': (context) => ProfileAddEditView(),
+
+        // 'ProductAddEdit': (context) => ProductAddEdit(),
       },
     );
   }

@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:opencommerce/widgets/text-input-field.dart';
-import 'package:opencommerce/widgets/password-input.dart';
 import 'package:opencommerce/widgets/login-signup-button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:opencommerce/widgets/password-input.dart';
+import 'package:opencommerce/widgets/text-input-field.dart';
 import 'package:opencommerce/widgets/widgets.dart';
 
 class SignIn extends StatefulWidget {
@@ -43,8 +43,8 @@ class _SignInState extends State<SignIn> {
       );
       return null;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        return 'The password provided is too weak.';
+      if (e.code == 'wrong-password') {
+        return 'The password entered is wrong.';
       } else if (e.code == 'email-already-in-use') {
         return 'The account already exists for that email.';
       }
