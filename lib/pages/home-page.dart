@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/controllers/product_controller.dart';
 import 'package:opencommerce/main.dart';
 import 'package:opencommerce/models/model.dart';
+import 'package:opencommerce/models/profile_model.dart';
+import 'package:opencommerce/pages/ProfileView.dart';
 import 'package:opencommerce/pages/pages.dart';
 import 'package:opencommerce/pages/product-view.dart';
+import 'package:opencommerce/pages/profile_add_edit.dart';
 import 'package:opencommerce/product-add-edit.dart';
 import 'package:opencommerce/services/product_service.dart';
 
@@ -24,11 +28,11 @@ class _HomeViewState extends State<HomeView> {
           centerTitle: false,
           title: Text("Free Commerce"),
           actions: [
-            IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                }),
+            // IconButton(
+            //     icon: Icon(Icons.logout),
+            //     onPressed: () {
+            //       FirebaseAuth.instance.signOut();
+            //     }),
             IconButton(
                 icon: Icon(Icons.info),
                 onPressed: () {
@@ -38,21 +42,73 @@ class _HomeViewState extends State<HomeView> {
                           builder: (BuildContext context) =>
                               ProductAddEdit(Product())));
                 }),
-            IconButton(
-                icon: Icon(Icons.person_add),
-                onPressed: () {
-                  Navigator.pushNamed(context, 'ProfileUpdate');
-                }),
+            // IconButton(
+            //     icon: Icon(Icons.person_add),
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, 'ProfileAddEditView');
+            //     }),
             IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => CartView(cart.products)),
+                        builder: (BuildContext context) =>
+                            CartView(cart.products)),
                   );
                 }),
           ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              Container(
+                color: Colors.grey,
+                child: SizedBox(
+                  height: 150.0,
+                  child: Icon(
+                    Icons.person,
+                    size: 60.0,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text("Profile", style: TextStyle(fontSize: 20),),
+                onTap: () async {
+                  Profile _profile;
+
+                  /// fetch profile from firebase if exist
+                  final user = FirebaseAuth.instance.currentUser;
+                  DocumentSnapshot doc = await FirebaseFirestore.instance
+                      .collection("profiles")
+                      .doc(user.uid)
+                      .get();
+                  if (doc.exists) {
+                    _profile = Profile.fromMap(doc.data());
+                  }
+
+                  if (_profile != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileView(_profile)));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileAddEditView()));
+                  }
+                },
+
+              ),
+              ListTile(
+                title: Text("Sign Out",style: TextStyle(fontSize: 15),),
+                onTap: (){
+                  FirebaseAuth.instance.signOut();
+                },
+              )
+            ],
+          ),
         ),
         body: Container(
             child: StreamBuilder<List<Product>>(
@@ -70,7 +126,7 @@ class _HomeViewState extends State<HomeView> {
                         return ListTile(
                           leading: Image.network(product.imageUrl),
                           title: Text(product.name),
-                          subtitle: Text("${product.price}"),
+                          subtitle: Text("₹${product.price}"),
                           onTap: () {
                             Navigator.push(
                                 context,

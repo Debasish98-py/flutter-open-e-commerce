@@ -64,7 +64,7 @@ class ProductAddEdit extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.number,
                 initialValue:
-                product.price != null ? product.price.toString() : '',
+                    product.price != null ? product.price.toString() : '',
                 validator: (value) => _validate(value, "Price"),
                 decoration: InputDecoration(
                   labelText: "Product price",
@@ -93,6 +93,17 @@ class ProductAddEdit extends StatelessWidget {
               ),
 
               // this.manufacturer,
+              TextFormField(
+                initialValue:
+                    product.discount != null ? product.discount.toString() : '',
+                validator: (value) => _validate(value, "Discount"),
+                decoration: InputDecoration(
+                  labelText: "Discount",
+                ),
+                onSaved: (value) {
+                  product.discount = double.parse(value);
+                },
+              ),
               TextFormField(
                 initialValue: product.manufacturer,
                 validator: (value) => _validate(value, "Manufacturer"),

@@ -3,7 +3,7 @@ import 'package:opencommerce/models/profile_model.dart';
 import 'package:opencommerce/pages/profile_add_edit.dart';
 
 class ProfileView extends StatelessWidget {
-  Profile _profile;
+  final Profile _profile;
 
   ProfileView(this._profile);
 
@@ -11,7 +11,8 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(centerTitle: true,
+          title: Text("My Profile", style: TextStyle(fontSize: 18),),
           actions: [
             IconButton(
               icon: Icon(Icons.edit),
@@ -19,9 +20,8 @@ class ProfileView extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfileAddEditView(
-                          profile: _profile
-                        )));
+                        builder: (context) =>
+                            ProfileAddEditView(profile: _profile)));
               },
             )
           ],

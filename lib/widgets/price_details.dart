@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:opencommerce/models/model.dart';
 
 class PriceDetails extends StatelessWidget {
   const PriceDetails({

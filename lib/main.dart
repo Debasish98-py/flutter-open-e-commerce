@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:opencommerce/controllers/cart_controller.dart';
+import 'package:opencommerce/models/profile_model.dart';
 import 'package:opencommerce/pages/home-page.dart';
 import 'package:opencommerce/pages/profile_add_edit.dart';
 import 'package:opencommerce/pages/video_player.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         'HomeView': (context) => HomeView(),
         'SignUp': (context) => SignUp(),
         'VideoPlayer': (context) => VideoPlayer(),
-        'ProfileUpdate': (context) => ProfileAddEditView(),
+        'ProfileAddEditView': (context) => ProfileAddEditView(profile: Profile(),),
 
         // 'ProductAddEdit': (context) => ProductAddEdit(),
       },

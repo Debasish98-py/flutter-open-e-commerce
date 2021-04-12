@@ -13,6 +13,7 @@ class Product {
     this.description,
     this.manufacturer,
     this.inStock,
+    this.discount
   });
 
   String id;
@@ -22,15 +23,17 @@ class Product {
   String description;
   String manufacturer;
   bool inStock;
+  num discount;
 
   Product copyWith({
     String id,
     String name,
-    double price,
+    num price,
     String imageUrl,
     String description,
     String manufacturer,
     bool inStock,
+    num discount,
   }) =>
       Product(
         id: id ?? this.id,
@@ -40,6 +43,7 @@ class Product {
         description: description ?? this.description,
         manufacturer: manufacturer ?? this.manufacturer,
         inStock: inStock ?? this.inStock,
+        discount: discount ?? this.discount,
       );
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
@@ -51,6 +55,7 @@ class Product {
         manufacturer:
             json["manufacturer"] == null ? null : json["manufacturer"],
         inStock: json["inStock"] == null ? null : json["inStock"],
+        discount: json["discount"] == null ? null : json["discount"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -61,5 +66,6 @@ class Product {
         "description": description == null ? null : description,
         "manufacturer": manufacturer == null ? null : manufacturer,
         "inStock": inStock == null ? null : inStock,
+        "discount": discount == null ? null : discount,
       };
 }
