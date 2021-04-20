@@ -5,6 +5,7 @@ import 'package:opencommerce/auth.dart';
 class GoogleSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return FlatButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.00),

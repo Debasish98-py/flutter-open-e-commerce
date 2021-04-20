@@ -3,14 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:opencommerce/models/model.dart';
 import 'package:opencommerce/pages/pages.dart';
 
+// ignore: must_be_immutable
 class CartItem extends StatelessWidget {
   final Product product;
   Function onRemove;
 
   CartItem(this.product, this.onRemove);
 
-  set dis(value) => product.price  = value;
-  set disVal(val) => product.discount = val;
+  // set dis(value) => product.price  = value;
+  // set disVal(val) => product.discount = val;
   get dis => product.price-(product.price*product.discount/100);
 
   @override
@@ -150,7 +151,7 @@ class CartItem extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     Text(
-                      "₹${dis}",
+                      "₹$dis",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     )

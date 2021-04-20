@@ -5,7 +5,7 @@ class CartController {
 
   removeProduct(Product _p) {
     int index = products.indexWhere((product) => product.id == _p.id);
-    if (index != 1) {
+    if (index != null) {
       products.removeAt(index);
     }
   }

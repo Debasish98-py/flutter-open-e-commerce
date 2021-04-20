@@ -47,7 +47,9 @@ class _MyAppState extends State<MyApp> {
         'HomeView': (context) => HomeView(),
         'SignUp': (context) => SignUp(),
         'VideoPlayer': (context) => VideoPlayer(),
-        'ProfileAddEditView': (context) => ProfileAddEditView(profile: Profile(),),
+        'ProfileAddEditView': (context) => ProfileAddEditView(
+              profile: Profile(),
+            ),
 
         // 'ProductAddEdit': (context) => ProductAddEdit(),
       },

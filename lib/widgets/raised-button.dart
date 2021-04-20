@@ -24,6 +24,7 @@ class Button extends StatelessWidget {
         borderRadius: BorderRadius.circular(60),
         color: Colors.blue,
       ),*/
+      // ignore: deprecated_member_use
       child: RaisedButton.icon(
         onPressed: () {},
         color: Colors.greenAccent,

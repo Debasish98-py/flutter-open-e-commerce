@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:opencommerce/models/profile_model.dart';
 import 'package:opencommerce/pages/ProfileView.dart';
 
+// ignore: must_be_immutable
 class ProfileAddEditView extends StatefulWidget {
   Profile profile = Profile();
 
@@ -52,7 +53,7 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
                                 builder: (context) =>
                                     ProfileView(widget.profile)));
                       } catch (e) {
-                        Scaffold.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Something went wrong!!!'),
                           duration: Duration(seconds: 3),
                         ));

@@ -24,7 +24,7 @@ class _SignInState extends State<SignIn> {
                 child: Text(error),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text("Close Dialog"),
                   onPressed: () {
                     Navigator.pop(context);
@@ -35,6 +35,7 @@ class _SignInState extends State<SignIn> {
   }
 
   //Create a new user account
+  // ignore: missing_return
   Future<String> _signIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(

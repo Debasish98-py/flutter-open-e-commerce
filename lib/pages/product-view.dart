@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:opencommerce/main.dart';
 import 'package:opencommerce/models/model.dart';
 import 'package:opencommerce/product-add-edit.dart';
 
@@ -72,8 +72,15 @@ class _ProductViewState extends State<ProductView> {
                 Builder(
                   builder: (context) => ElevatedButton(
                       onPressed: () {
-                        cart.products.add(widget.product);
-                        Scaffold.of(context).showSnackBar(SnackBar(
+                        var product = widget.product;
+                        if (product.id != null){
+                          FirebaseFirestore.instance
+                              .collection("Cart")
+                              .doc(product.id)
+                              .set(product.toMap(), SetOptions(merge: true));
+                        }
+                        // cart.products.add(widget.product);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('${widget.product.name} added to the cart'),
                           duration: Duration(seconds: 5),
                         ));

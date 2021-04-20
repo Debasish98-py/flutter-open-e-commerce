@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/controllers/product_controller.dart';
-import 'package:opencommerce/main.dart';
 import 'package:opencommerce/models/model.dart';
 import 'package:opencommerce/models/profile_model.dart';
 import 'package:opencommerce/pages/ProfileView.dart';
@@ -53,8 +52,7 @@ class _HomeViewState extends State<HomeView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            CartView(cart.products)),
+                        builder: (BuildContext context) => CartView()),
                   );
                 }),
           ],
@@ -73,7 +71,10 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               ListTile(
-                title: Text("Profile", style: TextStyle(fontSize: 20),),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(fontSize: 20),
+                ),
                 onTap: () async {
                   Profile _profile;
 
@@ -96,17 +97,21 @@ class _HomeViewState extends State<HomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfileAddEditView()));
+                            builder: (context) => ProfileAddEditView(
+                                  profile: Profile(),
+                                )));
                   }
                 },
-
               ),
               ListTile(
-                title: Text("Sign Out",style: TextStyle(fontSize: 15),),
-                onTap: (){
+                title: Text(
+                  "Sign Out",
+                  style: TextStyle(fontSize: 15),
+                ),
+                onTap: () {
                   FirebaseAuth.instance.signOut();
                 },
-              )
+              ),
             ],
           ),
         ),

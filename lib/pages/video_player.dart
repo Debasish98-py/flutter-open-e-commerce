@@ -383,6 +383,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
   }
 
   void _showSnackBar(String message) {
+    // ignore: deprecated_member_use
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(
