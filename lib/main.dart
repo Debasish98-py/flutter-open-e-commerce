@@ -1,14 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:opencommerce/controllers/cart_controller.dart';
 import 'package:opencommerce/models/profile_model.dart';
 import 'package:opencommerce/pages/home-page.dart';
 import 'package:opencommerce/pages/profile_add_edit.dart';
 import 'package:opencommerce/pages/video_player.dart';
 import 'pages/pages.dart';
 
-final cart = CartController();
 
 void main() {
   runApp(MyApp());

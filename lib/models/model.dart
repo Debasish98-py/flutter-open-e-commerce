@@ -13,7 +13,7 @@ class Product {
     this.description,
     this.manufacturer,
     this.inStock,
-    this.discount
+    this.discount,
   });
 
   String id;
