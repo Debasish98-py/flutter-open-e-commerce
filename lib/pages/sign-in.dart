@@ -103,11 +103,12 @@ class _SignInState extends State<SignIn> {
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Flexible(
                   child: Center(
                     child: Text(
-                      'Fast-Buy',
+                      'OpenCommerce',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 60,

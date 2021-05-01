@@ -19,7 +19,7 @@ class LandingPage extends StatelessWidget {
               ),
             );
           }
-
+///kakku
           if (snapshot.connectionState == ConnectionState.done) {
             //streamBuilder can check the login state live
             return StreamBuilder(

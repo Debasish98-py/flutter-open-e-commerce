@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
       home: initialized
           ? LandingPage()
           : Center(child: CircularProgressIndicator()),
+      ///kakku
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
         'ProfileAddEditView': (context) => ProfileAddEditView(
               profile: Profile(),
             ),
+        'CheckoutView': (context) => CheckoutView(),
 
         // 'ProductAddEdit': (context) => ProductAddEdit(),
       },

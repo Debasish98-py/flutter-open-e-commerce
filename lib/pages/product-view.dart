@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/models/model.dart';
+import 'package:opencommerce/pages/pages.dart';
 import 'package:opencommerce/product-add-edit.dart';
 
 class ProductView extends StatefulWidget {
@@ -31,6 +32,15 @@ class _ProductViewState extends State<ProductView> {
               setState(() {});
             },
           ),
+          IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => CartView()),
+                );
+              }),
 
           ///CartIcon()
         ],
@@ -39,6 +49,7 @@ class _ProductViewState extends State<ProductView> {
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
+            ///kakku
             Image.network(
               widget.product.imageUrl,
               height: 300.0,

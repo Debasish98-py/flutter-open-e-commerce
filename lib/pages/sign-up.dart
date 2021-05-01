@@ -64,7 +64,7 @@ class _SignUpState extends State<SignUp> {
     //Run the create account method
     String _createAccountFeedback = await _signUp();
 
-    //If the string i not null, we get error while creating account
+    //If the string is not null, we get error while creating account
     if (_createAccountFeedback != null) {
       _alertDialogBuilder(_createAccountFeedback);
 

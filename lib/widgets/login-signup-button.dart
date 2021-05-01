@@ -15,10 +15,11 @@ class CustomBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        ///kakku
         height: 50.0,
         width: 100.0,
         decoration: BoxDecoration(
-          color: _outlineBtn ? Colors.transparent : Colors.green,
+          color: _outlineBtn ? Colors.transparent : Colors.deepOrangeAccent,
           border: Border.all(
             color: Colors.yellow,
             width: 2.0,

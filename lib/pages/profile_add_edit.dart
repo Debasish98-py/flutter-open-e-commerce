@@ -97,6 +97,54 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
                       value.isEmpty ? "Please enter your mobile number" : null,
                   onSaved: (value) => widget.profile.mobileNumber = value,
                 ),
+                TextFormField(
+                  initialValue: widget.profile.addressLine,
+                  keyboardType: TextInputType.streetAddress,
+                  decoration: InputDecoration(labelText: "Address Line"),
+                  validator: (value) =>
+                      value.isEmpty ? "Please enter a valid address" : null,
+                  onSaved: (value) => widget.profile.addressLine = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.landmark,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(labelText: "Landmark"),
+                  validator: (value) =>
+                      value.isEmpty ? "Please enter a Landmark" : null,
+                  onSaved: (value) => widget.profile.landmark = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.phoneNumber,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(labelText: "Phone Number"),
+                  validator: (value) =>
+                      value.isEmpty ? "Please enter your phone number" : null,
+                  onSaved: (value) => widget.profile.phoneNumber = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.city,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(labelText: "City"),
+                  validator: (value) =>
+                      value.isEmpty ? "Please enter your City" : null,
+                  onSaved: (value) => widget.profile.city = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.state,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(labelText: "State"),
+                  validator: (value) =>
+                      value.isEmpty ? "Please enter your state" : null,
+                  onSaved: (value) => widget.profile.state = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.pin,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: "PIN"),
+                  validator: (value) =>
+                      value.isEmpty ? "Please enter a valid PIN" : null,
+                  onSaved: (value) => widget.profile.pin = value,
+                ),
               ],
             ),
           ),
