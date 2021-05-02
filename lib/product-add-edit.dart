@@ -44,79 +44,123 @@ class ProductAddEdit extends StatelessWidget {
             )
           ],
         ),
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
-            children: [
-              // this.name,
-              TextFormField(
-                initialValue: product.name,
-                decoration: InputDecoration(
-                  labelText: "Product Name",
+        body: Container(
+          padding: EdgeInsets.all(10),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                // this.name,
+                TextFormField(
+                  initialValue: product.name,
+                  decoration: InputDecoration(
+                    labelText: "Product Name",
+                  ),
+                  validator: (value) => _validate(value, "Product Name"),
+                  onSaved: (value) {
+                    product.name = value;
+                  },
                 ),
-                validator: (value) => _validate(value, "Product Name"),
-                onSaved: (value) {
-                  product.name = value;
-                },
-              ),
-              // this.price,
-              TextFormField(
-                keyboardType: TextInputType.number,
-                initialValue:
-                    product.price != null ? product.price.toString() : '',
-                validator: (value) => _validate(value, "Price"),
-                decoration: InputDecoration(
-                  labelText: "Product price",
+                // this.price,
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  initialValue:
+                      product.price != null ? product.price.toString() : '',
+                  validator: (value) => _validate(value, "Price"),
+                  decoration: InputDecoration(
+                    labelText: "Product price",
+                  ),
+                  onSaved: (value) {
+                    product.price = double.parse(value);
+                  },
+                ), // this.imageUrl,
+                TextFormField(
+                  initialValue: product.imageUrl,
+                  validator: (value) => _validate(value, "Image Url"),
+                  decoration: InputDecoration(
+                    labelText: "Product Image Url",
+                  ),
+                  onSaved: (value) => product.imageUrl = value,
+                ), // this.description,
+                TextFormField(
+                  initialValue: product.description,
+                  validator: (value) => _validate(value, "Description"),
+                  decoration: InputDecoration(
+                    labelText: "Product description",
+                  ),
+                  minLines: 2,
+                  maxLines: 4,
+                  onSaved: (value) => product.description = value,
                 ),
-                onSaved: (value) {
-                  product.price = double.parse(value);
-                },
-              ), // this.imageUrl,
-              TextFormField(
-                initialValue: product.imageUrl,
-                validator: (value) => _validate(value, "Image Url"),
-                decoration: InputDecoration(
-                  labelText: "Product Image Url",
-                ),
-                onSaved: (value) => product.imageUrl = value,
-              ), // this.description,
-              TextFormField(
-                initialValue: product.description,
-                validator: (value) => _validate(value, "Description"),
-                decoration: InputDecoration(
-                  labelText: "Product description",
-                ),
-                minLines: 2,
-                maxLines: 4,
-                onSaved: (value) => product.description = value,
-              ),
 
-              // this.manufacturer,
-              TextFormField(
-                initialValue:
-                    product.discount != null ? product.discount.toString() : '',
-                validator: (value) => _validate(value, "Discount"),
-                decoration: InputDecoration(
-                  labelText: "Discount",
+                // this.manufacturer,
+                TextFormField(
+                  initialValue: product.discount != null
+                      ? product.discount.toString()
+                      : '',
+                  validator: (value) => _validate(value, "Discount"),
+                  decoration: InputDecoration(
+                    labelText: "Discount",
+                  ),
+                  onSaved: (value) {
+                    product.discount = double.parse(value);
+                  },
                 ),
-                onSaved: (value) {
-                  product.discount = double.parse(value);
-                },
-              ),
-              TextFormField(
-                initialValue: product.manufacturer,
-                validator: (value) => _validate(value, "Manufacturer"),
-                decoration: InputDecoration(
-                  labelText: "Product manufacturer",
+                TextFormField(
+                  initialValue: product.manufacturer,
+                  validator: (value) => _validate(value, "Manufacturer"),
+                  decoration: InputDecoration(
+                    labelText: "Product manufacturer",
+                  ),
+                  onSaved: (value) => product.manufacturer = value,
                 ),
-                onSaved: (value) => product.manufacturer = value,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              // this.inStock,
-            ],
+                SizedBox(
+                  height: 20.0,
+                ),
+                Center(
+                  child: GestureDetector(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        height: 40,
+                        width: 200,
+                        color: Colors.red,
+                        child: Center(
+                          child: Text("Remove Product", style: TextStyle(fontSize: 20),),
+                        ),
+                      ),
+                    ),
+                    onTap: (){
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              child: Wrap(
+                                children: [
+                                  ListTile(
+                                      leading:
+                                      Icon(Icons.delete),
+                                      title: Text("Delete"),
+                                      onTap: () {
+                                        FirebaseFirestore
+                                            .instance
+                                            .collection(
+                                            'Products')
+                                            .doc(product.id)
+                                            .delete();
+                                        Navigator.maybePop(
+                                            context);
+                                      }),
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                  ),
+                ),
+                // this.inStock,
+              ],
+            ),
           ),
         ),
       ),

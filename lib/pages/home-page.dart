@@ -149,7 +149,7 @@ class _HomeViewState extends State<HomeView> {
                         return Column(
                           children: [
                             Container(
-                              height: 150,
+                              height: 170,
                               child: Row(
                                 children: [
                                   Expanded(
@@ -163,59 +163,65 @@ class _HomeViewState extends State<HomeView> {
                                         return Row(
                                           children: [
                                             GestureDetector(
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                    begin: Alignment.centerLeft,
-                                                    end: Alignment.centerRight,
-                                                    colors: [
-                                                      Colors.blue[900],
-                                                      Colors.purple[700]
-                                                    ],
-                                                  )),
-                                                  padding: EdgeInsets.all(7),
-                                                  height: 150,
-                                                  width: 120,
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Flexible(
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          child: Container(
-                                                            height: 90,
-                                                            width: 90,
-                                                            child: Image.network(
-                                                              product.imageUrl,
-                                                              fit: BoxFit.fill,
+                                              child: Card(
+                                                elevation: 10,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        // color: Colors.blueGrey,
+                                                        ),
+                                                    padding: EdgeInsets.all(7),
+                                                    height: 150,
+                                                    width: 120,
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Flexible(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            child: Container(
+                                                              height: 90,
+                                                              width: 90,
+                                                              child:
+                                                                  Image.network(
+                                                                product
+                                                                    .imageUrl,
+                                                                fit: BoxFit
+                                                                    .scaleDown,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        product.name,
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontFamily:
-                                                                "Akaya Kanadaka"),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 1,
-                                                      ),
-                                                      Text(
-                                                        product.price
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 17,
+                                                        Text(
+                                                          product.name,
+                                                          style: TextStyle(
+                                                              fontSize: 22,
+                                                              fontWeight: FontWeight.bold,
+                                                              fontFamily:
+                                                                  "Akaya Kanadaka"),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        SizedBox(
+                                                          height: 1,
+                                                        ),
+                                                        Text("₹${product.price}",
+                                                          style: TextStyle(color: Colors.green,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.bold
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -261,15 +267,20 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ),
-              Container(
-                // padding: EdgeInsets.all(14),
-                child: Card(
-                  color: Colors.deepOrangeAccent,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
+              Card(
+                elevation: 10,
+                color: Colors.blueGrey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    top: 5,
+                    bottom: 5,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -277,8 +288,8 @@ class _HomeViewState extends State<HomeView> {
                       Text(
                         "Things you might like",
                         style: TextStyle(
-                            fontSize: 25, fontFamily: "Akaya Kanadaka"),
-                      ),
+                            fontSize: 25, fontFamily: "Akaya kanadaka"),
+                      )
                     ],
                   ),
                 ),
@@ -308,18 +319,19 @@ class _HomeViewState extends State<HomeView> {
                           itemBuilder: (context, index) {
                             var product = _products[index];
                             return Card(
-                              elevation: 5,
+                              elevation: 7,
                               color: Colors.white54,
                               child: ListTile(
                                 title: Text(
                                   product.name,
                                   style: TextStyle(
                                       fontSize: 22,
+                                      fontWeight: FontWeight.bold,
                                       fontFamily: "Akaya Kanadaka"),
                                 ),
                                 subtitle: Text(
                                   "₹${product.price}",
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
                                 ),
                                 trailing: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
@@ -328,10 +340,20 @@ class _HomeViewState extends State<HomeView> {
                                     width: 80,
                                     child: Image.network(
                                       product.imageUrl,
-                                      fit: BoxFit.fill,
+                                      fit: BoxFit.scaleDown,
+                                      // scale: 8,
                                     ),
                                   ),
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ProductView(product),
+                                    ),
+                                  );
+                                },
                               ),
                             );
                           },
