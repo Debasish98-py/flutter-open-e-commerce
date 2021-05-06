@@ -2,11 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:opencommerce/models/profile_model.dart';
+import 'package:opencommerce/pages/auth-view.dart';
 import 'package:opencommerce/pages/home-page.dart';
 import 'package:opencommerce/pages/profile_add_edit.dart';
 import 'package:opencommerce/pages/video_player.dart';
 import 'pages/pages.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -32,8 +32,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter e-commerce',
       home: initialized
           ? LandingPage()
-          : Center(child: CircularProgressIndicator()),
-      ///kakku
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),

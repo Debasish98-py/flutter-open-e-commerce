@@ -25,6 +25,8 @@ class ProductAddEdit extends StatelessWidget {
 
                   product.inStock = true;
 
+
+
                   /// form data is now valid. you may save to db.
                   if (product.id != null) {
                     FirebaseFirestore.instance
@@ -148,8 +150,7 @@ class ProductAddEdit extends StatelessWidget {
                                             'Products')
                                             .doc(product.id)
                                             .delete();
-                                        Navigator.maybePop(
-                                            context);
+                                        Navigator.pushReplacementNamed(context, "HomeView");
                                       }),
                                 ],
                               ),

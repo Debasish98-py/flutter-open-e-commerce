@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/models/profile_model.dart';
@@ -43,9 +44,9 @@ class ProfileView extends StatelessWidget {
                 color: const Color(0xffF27000),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30)
-                    // topLeft: Radius.circular(40),
-                    // bottomRight: Radius.circular(40),
-                  ),
+                      // topLeft: Radius.circular(40),
+                      // bottomRight: Radius.circular(40),
+                      ),
                 ),
                 child: Column(
                   children: [
@@ -54,7 +55,9 @@ class ProfileView extends StatelessWidget {
                         _profile.name ?? '',
                       ),
                       subtitle: Text("Full Name"),
-                    ),///kakku
+                    ),
+
+                    ///kakku
                     ListTile(
                       title: Text(
                         _profile.emailId ?? '',
@@ -81,9 +84,9 @@ class ProfileView extends StatelessWidget {
                 color: const Color(0xff89F200),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30)
-                    // topLeft: Radius.circular(40),
-                    // bottomRight: Radius.circular(40),
-                  ),
+                      // topLeft: Radius.circular(40),
+                      // bottomRight: Radius.circular(40),
+                      ),
                 ),
                 child: Column(
                   children: [
@@ -98,12 +101,6 @@ class ProfileView extends StatelessWidget {
                         _profile.landmark ?? '',
                       ),
                       subtitle: Text("Landmark"),
-                    ),
-                    ListTile(
-                      title: Text(
-                        _profile.phoneNumber ?? '',
-                      ),
-                      subtitle: Text("Phone Number"),
                     ),
                     ListTile(
                       title: Text(

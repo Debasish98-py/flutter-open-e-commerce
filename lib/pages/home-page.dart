@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:opencommerce/auth.dart';
 import 'package:opencommerce/controllers/product_controller.dart';
 import 'package:opencommerce/models/model.dart';
 import 'package:opencommerce/models/profile_model.dart';
@@ -124,7 +125,9 @@ class _HomeViewState extends State<HomeView> {
                   style: TextStyle(fontSize: 15),
                 ),
                 onTap: () {
-                  FirebaseAuth.instance.signOut();
+                  signOut();
+                  // Navigator.pushReplacementNamed(context, "SignIn");
+
                 },
               ),
             ],
@@ -207,18 +210,24 @@ class _HomeViewState extends State<HomeView> {
                                                           product.name,
                                                           style: TextStyle(
                                                               fontSize: 22,
-                                                              fontWeight: FontWeight.bold,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                               fontFamily:
                                                                   "Akaya Kanadaka"),
                                                         ),
                                                         SizedBox(
                                                           height: 1,
                                                         ),
-                                                        Text("₹${product.price}",
-                                                          style: TextStyle(color: Colors.green,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.bold
-                                                          ),
+                                                        Text(
+                                                          "₹${product.price}",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.green,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
                                                       ],
                                                     ),
@@ -331,7 +340,10 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 subtitle: Text(
                                   "₹${product.price}",
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green),
                                 ),
                                 trailing: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
