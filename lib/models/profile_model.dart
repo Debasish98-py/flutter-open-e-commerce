@@ -6,6 +6,7 @@ String productToMap(Profile data) => json.encode(data.toMap());
 
 class Profile {
   Profile({
+    this.id,
     this.name,
     this.emailId,
     this.mobileNumber,
@@ -17,6 +18,7 @@ class Profile {
     this.pin,
   });
 
+  String id;
   String name;
   String emailId;
   String mobileNumber;
@@ -28,6 +30,7 @@ class Profile {
   String pin;
 
   Profile copyWith({
+    String id,
     String name,
     String emailId,
     String mobileNumber,
@@ -39,6 +42,7 @@ class Profile {
     String pin,
   }) =>
       Profile(
+        id: id ?? this.id,
         name: name ?? this.name,
         emailId: emailId ?? this.emailId,
         mobileNumber: mobileNumber ?? this.mobileNumber,
@@ -52,6 +56,7 @@ class Profile {
 
   /// fromMap
   factory Profile.fromMap(Map<String, dynamic> json) => Profile(
+        id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         emailId: json["emailId"] == null ? null : json["emailId"],
         mobileNumber:
@@ -66,6 +71,7 @@ class Profile {
 
   ///toMap()
   Map<String, dynamic> toMap() => {
+        "id": id == null ? null : id,
         "name": name == null ? null : name,
         "emailId": emailId == null ? null : emailId,
         "mobileNumber": mobileNumber == null ? null : mobileNumber,

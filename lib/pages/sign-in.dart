@@ -106,14 +106,17 @@ class _SignInState extends State<SignIn> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Flexible(
-                  child: Center(
-                    child: Text(
-                      'OpenCommerce',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 60,
-                        fontFamily: 'Akaya Kanadaka',
-                        fontWeight: FontWeight.bold,
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    child: Center(
+                      child: Text(
+                        'OpenCommerce',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 55,
+                          fontFamily: 'Akaya Kanadaka',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

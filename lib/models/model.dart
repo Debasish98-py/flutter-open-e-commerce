@@ -7,7 +7,9 @@ String productToMap(Product data) => json.encode(data.toMap());
 class Product {
   Product({
     this.id,
+    this.uniId,
     this.name,
+    this.shortName,
     this.price,
     this.imageUrl,
     this.description,
@@ -17,7 +19,9 @@ class Product {
   });
 
   String id;
+  String uniId;
   String name;
+  String shortName;
   num price;
   String imageUrl;
   String description;
@@ -27,7 +31,9 @@ class Product {
 
   Product copyWith({
     String id,
+    String uniId,
     String name,
+    String shortName,
     num price,
     String imageUrl,
     String description,
@@ -37,7 +43,9 @@ class Product {
   }) =>
       Product(
         id: id ?? this.id,
+        uniId: uniId ?? this.uniId,
         name: name ?? this.name,
+        shortName: shortName ?? this.shortName,
         price: price ?? this.price,
         imageUrl: imageUrl ?? this.imageUrl,
         description: description ?? this.description,
@@ -48,7 +56,9 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"] == null ? null : json["id"],
+        uniId: json["uniId"] == null ? null : json["uniId"],
         name: json["name"] == null ? null : json["name"],
+        shortName: json["shortName"] == null ? null : json["shortName"],
         price: json["price"] == null ? null : json["price"],
         imageUrl: json["imageUrl"] == null ? null : json["imageUrl"],
         description: json["description"] == null ? null : json["description"],
@@ -60,7 +70,9 @@ class Product {
 
   Map<String, dynamic> toMap() => {
         "id": id == null ? null : id,
+        "uniId": uniId == null ? null : uniId,
         "name": name == null ? null : name,
+        "shortName": shortName == null ? null : shortName,
         "price": price == null ? null : price,
         "imageUrl": imageUrl == null ? null : imageUrl,
         "description": description == null ? null : description,

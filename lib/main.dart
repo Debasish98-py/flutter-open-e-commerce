@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:opencommerce/models/profile_model.dart';
-import 'package:opencommerce/pages/auth-view.dart';
+
 import 'package:opencommerce/pages/home-page.dart';
 import 'package:opencommerce/pages/profile_add_edit.dart';
 import 'package:opencommerce/pages/video_player.dart';
@@ -28,7 +29,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter e-commerce',
       home: initialized
           ? LandingPage()
@@ -41,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'Landing Page',
+      // initialRoute: 'Landing Page',
       routes: {
         'SignIn': (context) => SignIn(),
         'HomeView': (context) => HomeView(),

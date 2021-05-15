@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:opencommerce/models/model.dart';
 import 'package:opencommerce/pages/pages.dart';
-import 'package:opencommerce/product-add-edit.dart';
+import 'package:opencommerce/pages/product-add-edit.dart';
 
 class ProductView extends StatefulWidget {
   final Product product;
@@ -17,8 +19,10 @@ class ProductView extends StatefulWidget {
 class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange,
         title: Text("${widget.product.name}"),
         actions: [
           IconButton(
@@ -41,67 +45,117 @@ class _ProductViewState extends State<ProductView> {
                       builder: (BuildContext context) => CartView()),
                 );
               }),
-
-          ///CartIcon()
         ],
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
+        padding: EdgeInsets.all(10),
+        child: ListView(
+          scrollDirection: Axis.vertical,
           children: [
-            ///kakku
-            Image.network(
-              widget.product.imageUrl,
-              height: 300.0,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                height: 300,
+                child: Image.network(
+                  widget.product.imageUrl,
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
             ),
-            Divider(height: 10, color: Colors.black,),
+            SizedBox(
+              height: 15,
+            ),
             Text(
               widget.product.name,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Text(
-              widget.product.inStock ? 'In-Stock' : 'Out of stock',
               style: TextStyle(
-                  color: widget.product.inStock ? Colors.green : Colors.red, fontSize: 20),
+                fontSize: 22,
+                fontFamily: "Akaya Kanadaka",
+              ),
             ),
             SizedBox(
-              height: 20.0,
-            ),
-            Text(widget.product.description, style: TextStyle(fontSize: 22, fontStyle: FontStyle.italic),),
-
-            Spacer(),
-            Text("₹${widget.product.price}", style: TextStyle(fontSize: 20),),
-            SizedBox(
-              height: 10.0,
+              height: 30,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Builder(
-                  builder: (context) => ElevatedButton(
-                      onPressed: () {
-                        var product = widget.product;
-                        if (product.id != null){
-                          FirebaseFirestore.instance
-                              .collection("Cart")
-                              .doc(product.id)
-                              .set(product.toMap(), SetOptions(merge: true));
-                        }
-                        // cart.products.add(widget.product);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('${widget.product.name} added to the cart'),
-                          duration: Duration(seconds: 5),
-                        ));
-                      },
-                      child: Text('Add to Cart')),
+                Text(
+                  "₹${widget.product.price}",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                ElevatedButton(onPressed: () {}, child: Text('Buy')),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "₹${widget.product.discount} off",
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
-            Spacer()
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: [
+            GestureDetector(
+              child: Container(
+                height: 50,
+                width: deviceWidth * 0.50,
+                color: Colors.lightBlueAccent,
+                child: Center(
+                  child: Text(
+                    "ADD TO CART",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              onTap: () async {
+                var user = FirebaseAuth.instance.currentUser;
+
+                if (user != null) {
+                  final collection =
+                      FirebaseFirestore.instance.collection("Cart");
+                  final doc = collection.doc();
+                  var pr = widget.product;
+                  pr.id = user.uid;
+                  pr.uniId = doc.id;
+                  collection.doc(pr.uniId).set(pr.toMap());
+                }
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("${widget.product.name} added to your cart"),
+                  ),
+                );
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                height: 50,
+                width: deviceWidth * 0.50,
+                color: Colors.orange,
+                child: Center(
+                  child: Text(
+                    "BUY NOW",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              onTap: (){
+                Get.to(CheckoutView());
+              },
+            ),
           ],
         ),
       ),

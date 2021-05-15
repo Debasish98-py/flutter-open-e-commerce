@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+
 import 'package:opencommerce/models/model.dart';
 
 class ProductAddEdit extends StatelessWidget {
@@ -25,8 +27,6 @@ class ProductAddEdit extends StatelessWidget {
 
                   product.inStock = true;
 
-
-
                   /// form data is now valid. you may save to db.
                   if (product.id != null) {
                     FirebaseFirestore.instance
@@ -43,7 +43,7 @@ class ProductAddEdit extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-            )
+            ),
           ],
         ),
         body: Container(
@@ -61,6 +61,16 @@ class ProductAddEdit extends StatelessWidget {
                   validator: (value) => _validate(value, "Product Name"),
                   onSaved: (value) {
                     product.name = value;
+                  },
+                ),
+                TextFormField(
+                  initialValue: product.shortName,
+                  decoration: InputDecoration(
+                    labelText: "Short Name",
+                  ),
+                  validator: (value) => _validate(value, "Short Name"),
+                  onSaved: (value) {
+                    product.shortName = value;
                   },
                 ),
                 // this.price,
@@ -128,11 +138,14 @@ class ProductAddEdit extends StatelessWidget {
                         width: 200,
                         color: Colors.red,
                         child: Center(
-                          child: Text("Remove Product", style: TextStyle(fontSize: 20),),
+                          child: Text(
+                            "Remove Product",
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ),
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       showModalBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
@@ -140,17 +153,15 @@ class ProductAddEdit extends StatelessWidget {
                               child: Wrap(
                                 children: [
                                   ListTile(
-                                      leading:
-                                      Icon(Icons.delete),
+                                      leading: Icon(Icons.delete),
                                       title: Text("Delete"),
                                       onTap: () {
-                                        FirebaseFirestore
-                                            .instance
-                                            .collection(
-                                            'Products')
+                                        FirebaseFirestore.instance
+                                            .collection('Products')
                                             .doc(product.id)
                                             .delete();
-                                        Navigator.pushReplacementNamed(context, "HomeView");
+                                        Navigator.pushReplacementNamed(
+                                            context, "HomeView");
                                       }),
                                 ],
                               ),
