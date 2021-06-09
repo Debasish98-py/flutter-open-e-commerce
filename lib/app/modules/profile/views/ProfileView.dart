@@ -6,6 +6,9 @@ import 'package:opencommerce/app/modules/profile/controller/profile_controller.d
 import 'package:opencommerce/app/modules/profile/views/profile_add_edit.dart';
 
 class ProfileView extends GetView<UserProfileController> {
+  var height = Get.context.height;
+  var width = Get.context.width;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserProfileController>(
@@ -23,173 +26,173 @@ class ProfileView extends GetView<UserProfileController> {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  Get.to(
+                  Get.off(
                     () => ProfileAddEditView(),
                   );
                 },
               )
             ],
           ),
-          body: value.isBusy ? Center(child: CircularProgressIndicator(),) : value.profile != null ? Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.blue[300], Colors.blue[100]],
-              ),
-            ),
-            padding: EdgeInsets.all(10.0),
-            child: ListView(
-              children: [
-                Icon(
-                  Icons.person,
-                  size: 50,
-                ),
-                Card(
-                  // color: const Color(0xffF27000),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30),
-                        ),
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          value.profile.name ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Akaya Kanadaka",
-                            fontSize: 20,
+          body: value.isBusy
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : value.profile != null
+                  ? Container(
+                      child: ListView(
+                        children: [
+                          Card(
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    value.profile.name ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Akaya Kanadaka",
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: Text("Name"),
+                                ),
+                                ListTile(
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        value.profile.emailId ?? '',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "Akaya Kanadaka",
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Icon(
+                                        FontAwesomeIcons.checkCircle,
+                                        color: Colors.green,
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: Text("Email Id"),
+                                ),
+                                ListTile(
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        value.profile.mobileNumber ?? '',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "Akaya Kanadaka",
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Icon(
+                                        FontAwesomeIcons.checkCircle,
+                                        color: Colors.green,
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: Text("Mobile Number"),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        subtitle: Text("Name"),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Card(
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    value.profile.addressLine ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Akaya Kanadaka",
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: Text("Address"),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    value.profile.landmark ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Akaya Kanadaka",
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: Text("Landmark"),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    value.profile.city ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Akaya Kanadaka",
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: Text("City"),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    value.profile.state ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Akaya Kanadaka",
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: Text("State"),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    value.profile.pin ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Akaya Kanadaka",
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: Text("PIN"),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    )
+                  : Container(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              value.profile.emailId ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Akaya Kanadaka",
-                                fontSize: 20,
+                            Container(
+                              height: height * 0.15,
+                              width: width * 0.3,
+                              child: Icon(
+                                Icons.person_add_alt_1_rounded,
+                                size: 80,
+                                color: Colors.blue,
                               ),
                             ),
-                            Icon(
-                              FontAwesomeIcons.checkCircle,
-                              color: Colors.green,
+                            Text(
+                              "Please update your profile",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
-                        subtitle: Text("Email Id"),
                       ),
-                      ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              value.profile.mobileNumber ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Akaya Kanadaka",
-                                fontSize: 20,
-                              ),
-                            ),
-                            Icon(
-                              FontAwesomeIcons.checkCircle,
-                              color: Colors.green,
-                            ),
-                          ],
-                        ),
-                        subtitle: Text("Mobile Number"),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Icon(
-                  Icons.house_rounded,
-                  size: 30,
-                ),
-                Card(
-                  // color: const Color(0xff89F200),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          value.profile.addressLine ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Akaya Kanadaka",
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text("Address"),
-                      ),
-                      ListTile(
-                        title: Text(
-                          value.profile.landmark ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Akaya Kanadaka",
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text("Landmark"),
-                      ),
-                      ListTile(
-                        title: Text(
-                          value.profile.city ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Akaya Kanadaka",
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text("City"),
-                      ),
-                      ListTile(
-                        title: Text(
-                          value.profile.state ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Akaya Kanadaka",
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text("State"),
-                      ),
-                      ListTile(
-                        title: Text(
-                          value.profile.pin ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Akaya Kanadaka",
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text("PIN"),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ) : Container(
-            child: Center(
-              child: Text("Please Update Your Profile"),
-            ),
-          ),
         );
-      }
+      },
     );
   }
 }

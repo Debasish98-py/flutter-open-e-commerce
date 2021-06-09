@@ -11,7 +11,7 @@ class SetProfileController extends GetxController{
     if(_user != null){
       try{
         await FirebaseFirestore.instance
-            .collection("UserData")
+            .collection("profiles")
             .doc(_user.uid)
             .set(profile.toMap());
       }catch(e){
