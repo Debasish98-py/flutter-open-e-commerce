@@ -24,17 +24,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  google_sign_in: "^4.5.1"
-  firebase_core: "^0.7.0"
-  firebase_auth: "^0.20.1"
+  google_sign_in:
+  firebase_core:
+  firebase_auth:
   cloud_firestore:
   get:
   email_auth:
   image_picker:
   youtube_player_flutter:
-
-#  provider: ^4.3.2+2
-
   cupertino_icons: ^1.0.0
   font_awesome_flutter: ^8.10.0
   google_fonts: ^1.1.1
