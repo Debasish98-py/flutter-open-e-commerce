@@ -3,17 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:opencommerce/app/modules/product/product_model.dart';
 
 class CartService {
-  final firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
 
-  Stream<List<Product>> getCartStream() {
-    return firestore
+  Stream<List<Product>> getCartStream(){
+    return FirebaseFirestore.instance
         .collection("Cart")
+        .where('id', isEqualTo: user.uid)
         .snapshots()
-        .map((snapShot) => snapShot.docs.map((doc) {
-              Product p = Product.fromMap(doc.data());
-              var user = FirebaseAuth.instance.currentUser;
-              p.id = user.uid;
-              return p;
-            }).toList());
+        .map((snapShot) => snapShot.docs
+        .map((doc) => Product.fromMap(doc.data()))
+        .toList());
   }
 }

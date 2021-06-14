@@ -5,8 +5,7 @@ import 'package:opencommerce/app/modules/authentication/sign-in.dart';
 import 'package:opencommerce/app/modules/authentication/sign-up.dart';
 import 'package:opencommerce/app/modules/checkout/checkout_view.dart';
 import 'package:opencommerce/app/modules/landing_page/landing_page.dart';
-import 'package:opencommerce/app/modules/profile/profile_model.dart';
-import 'package:opencommerce/app/modules/home/home-page.dart';
+import 'package:opencommerce/app/modules/product/views/home_page.dart';
 import 'package:opencommerce/app/modules/profile/views/profile_add_edit.dart';
 
 void main() {
@@ -37,14 +36,9 @@ class _MyAppState extends State<MyApp> {
               child: CircularProgressIndicator(),
             ),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      // initialRoute: 'Landing Page',
       routes: {
         'SignIn': (context) => SignIn(),
-        'HomeView': (context) => HomeView(),
+        // 'HomeView': (context) => HomeView(),
         'SignUp': (context) => SignUp(),
         'ProfileAddEditView': (context) => ProfileAddEditView(),
         'CheckoutView': (context) => CheckoutView(),

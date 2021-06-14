@@ -4,9 +4,7 @@ import 'package:opencommerce/app/modules/profile/profile_model.dart';
 
 class ProfileProvider{
   Future<Profile> getProfile() async{
-
     final _user = FirebaseAuth.instance.currentUser;
-
     var _doc = await FirebaseFirestore.instance
         .collection("profiles")
         .doc(_user.uid)

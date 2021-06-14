@@ -15,7 +15,7 @@ class SetProfileController extends GetxController{
             .doc(_user.uid)
             .set(profile.toMap());
       }catch(e){
-        Get.snackbar("Something", "went wrong!");
+        Get.snackbar("Error", "Something went wrong!");
       }
     }else{}
   }

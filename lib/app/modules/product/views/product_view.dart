@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:opencommerce/app/modules/cart/view/cart_view.dart';
 import 'package:opencommerce/app/modules/checkout/checkout_view.dart';
 import 'package:opencommerce/app/modules/product/product_model.dart';
-import 'package:opencommerce/app/modules/product/views/product-add-edit.dart';
 
 class ProductView extends StatefulWidget {
   final Product product;
@@ -26,14 +25,6 @@ class _ProductViewState extends State<ProductView> {
         backgroundColor: Colors.orange,
         title: Text("${widget.product.name}"),
         actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () async {
-              await Get.to(
-                () => ProductAddEdit(widget.product),
-              );
-            },
-          ),
           IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:opencommerce/app/modules/profile/controller/profile_controller.dart';
 import 'package:opencommerce/app/modules/profile/controller/set_profile_controller.dart';
-import 'package:opencommerce/app/modules/profile/views/ProfileView.dart';
+import 'package:opencommerce/app/modules/profile/views/profile_view.dart';
 
 class ProfileAddEditView extends StatefulWidget {
   @override
@@ -34,11 +34,8 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
                   icon: Icon(Icons.save),
                   onPressed: () async {
                     var form = _formKey.currentState;
-                    /// 1. Validate the form data by calling form.validate()
                     if (form.validate()){
-                      /// 2. Save the form fields value by calling form.save()
                       form.save();
-                      /// 3. Save data to the server/ database by calling service.save()
                       await _controller.setProfile();
                       Get.off(() => ProfileView());
                       Get.snackbar("Success!", "Profile updated");

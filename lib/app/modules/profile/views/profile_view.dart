@@ -6,11 +6,10 @@ import 'package:opencommerce/app/modules/profile/controller/profile_controller.d
 import 'package:opencommerce/app/modules/profile/views/profile_add_edit.dart';
 
 class ProfileView extends GetView<UserProfileController> {
-  var height = Get.context.height;
-  var width = Get.context.width;
-
   @override
   Widget build(BuildContext context) {
+    var height = Get.context.height;
+    var width = Get.context.width;
     return GetBuilder<UserProfileController>(
       init: UserProfileController(),
       builder: (value) {
@@ -26,9 +25,7 @@ class ProfileView extends GetView<UserProfileController> {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  Get.off(
-                    () => ProfileAddEditView(),
-                  );
+                  Get.off(() => ProfileAddEditView());
                 },
               )
             ],

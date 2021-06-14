@@ -1,165 +1,146 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:opencommerce/app/modules/cart/controller/cart_controller.dart';
 import 'package:opencommerce/app/modules/checkout/checkout_view.dart';
 import 'package:opencommerce/app/modules/product/product_model.dart';
-import 'package:opencommerce/app/modules/product/views/product-view.dart';
+import 'package:opencommerce/app/modules/product/views/product_view.dart';
 
-class CartView extends StatefulWidget {
-  @override
-  _CartViewState createState() => _CartViewState();
-}
-
-class _CartViewState extends State<CartView> {
+class CartView extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
-    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
         title: Text("My Cart"),
       ),
-      body: Container(
-        child: StreamBuilder<List<Product>>(
-          stream: FirebaseFirestore.instance
-              .collection("Cart")
-              .where('id', isEqualTo: user.uid)
-              .snapshots()
-              .map((snapShot) => snapShot.docs
-                  .map((doc) => Product.fromMap(doc.data()))
-                  .toList()),
-          builder: (context, snapShot) {
-            if (snapShot.hasError)
-              return Text("Error!!, ${snapShot.error.toString()}");
-            else if (snapShot.hasData &&
-                snapShot.connectionState != ConnectionState.waiting) {
-              final List<Product> products = snapShot.data;
-              return ListView(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: products.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Product product = products[index];
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        margin: EdgeInsets.all(5),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    flex: 2,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Get.to(
-                                          () => ProductView(product),
-                                        );
-                                      },
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            product.shortName ?? '',
-                                            style: TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: "Akaya Kanadaka",
+      body: SafeArea(
+        child: Container(
+          child: GetX<CartController>(
+            init: CartController(),
+            builder: (_controller) {
+              if(_controller.products.isEmpty){
+                return Center(child: Container(child: Text("Add products to your cart"),),);
+              }
+              else if (_controller.products.isNotEmpty) {
+                return ListView(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _controller.products.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Product product = _controller.products[index];
+                        return Card(
+                          margin: EdgeInsets.all(5),
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      flex: 2,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.to(
+                                            () => ProductView(product),
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              product.shortName ?? '',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "₹${product.price}",
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontFamily: "Akaya Kanadaka",
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              'Seller:',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              'Rating:',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "₹${product.price}",
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.start,
                                                 ),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Text(
-                                                "-₹${product.discount}",
-                                                style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontSize: 18,
-                                                  fontFamily: "Akaya Kanadaka",
+                                                SizedBox(
+                                                  width: 8,
                                                 ),
+                                                Text(
+                                                  "-₹${product.discount}",
+                                                  style: TextStyle(
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
+                                            Text(
+                                              'Delivery by:',
+                                              style: TextStyle(
+                                                color: Colors.grey,
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Container(
-                                      height: 100,
-                                      width: 120,
-                                      child: Image.network(
-                                        product.imageUrl,
-                                        fit: BoxFit.scaleDown,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height: 100,
+                                        width: 120,
+                                        child: Image.network(
+                                          product.imageUrl,
+                                          fit: BoxFit.scaleDown,
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Divider(
-                                color: Colors.black,
-                                thickness: 1,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    width: deviceWidth * 0.45,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.save_alt_outlined,
-                                          size: 15,
-                                          color: Colors.blue,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          "ADD TO WISHLIST",
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontFamily: "Akaya Kanadaka"),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    child: Container(
+                                    )
+                                  ],
+                                ),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
                                       height: 50,
                                       width: deviceWidth * 0.45,
                                       child: Row(
@@ -167,254 +148,239 @@ class _CartViewState extends State<CartView> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Icon(
-                                            Icons.delete,
+                                            Icons.save_alt_outlined,
                                             size: 15,
-                                            color: Colors.red,
+                                            color: Colors.blue,
                                           ),
                                           SizedBox(
                                             width: 5,
                                           ),
                                           Text(
-                                            "REMOVE",
+                                            "ADD TO WISHLIST",
                                             style: TextStyle(
-                                                fontSize: 17,
-                                                fontFamily: "Akaya Kanadaka"),
+                                              color: Colors.blue,
+                                                // fontSize: 17,
+                                                ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            titlePadding: EdgeInsets.only(
-                                              left: 15,
-                                              right: 15,
-                                              top: 15,
-                                              bottom: 8,
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 50,
+                                        width: deviceWidth * 0.45,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.delete,
+                                              size: 15,
+                                              color: Colors.red,
                                             ),
-                                            contentPadding: EdgeInsets.only(
-                                              left: 15,
-                                              right: 15,
-                                              top: 8,
-                                              bottom: 1,
+                                            SizedBox(
+                                              width: 5,
                                             ),
-                                            buttonPadding: EdgeInsets.all(1),
-                                            actionsPadding: EdgeInsets.all(1),
-                                            title: Text(
-                                              "Delete product",
+                                            Text(
+                                              "REMOVE",
                                               style: TextStyle(
-                                                  fontSize: 22,
-                                                  fontFamily: "Akaya Kanadaka"),
-                                            ),
-                                            content: Text(
-                                              "Are you sure you want to remove the item?",
-                                              style: TextStyle(
-                                                fontFamily: "Akaya Kanadaka",
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                child: Text(
-                                                  "Yes",
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontFamily:
-                                                        "Akaya Kanadaka",
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
+                                                color: Colors.red,
+                                                  // fontSize: 17,
                                                   ),
-                                                ),
-                                                onPressed: () {
-                                                  FirebaseFirestore.instance
-                                                      .collection('Cart')
-                                                      .doc(product.uniId)
-                                                      .delete();
-                                                  Get.back();
-                                                  // Navigator.pop(context);
-                                                },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              titlePadding: EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                top: 15,
+                                                bottom: 8,
                                               ),
-                                              TextButton(
-                                                child: Text(
-                                                  "No",
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontFamily:
-                                                        "Akaya Kanadaka",
-                                                    fontWeight: FontWeight.bold,
+                                              contentPadding: EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                top: 8,
+                                                bottom: 1,
+                                              ),
+                                              buttonPadding: EdgeInsets.all(1),
+                                              actionsPadding: EdgeInsets.all(1),
+                                              title: Text(
+                                                "Delete product",
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    ),
+                                              ),
+                                              content: Text(
+                                                "Are you sure you want to remove the item?",
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  child: Text(
+                                                    "Yes",
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.red,
+                                                    ),
                                                   ),
+                                                  onPressed: () {
+                                                    FirebaseFirestore.instance
+                                                        .collection('Cart')
+                                                        .doc(product.uniId)
+                                                        .delete();
+                                                    Get.back();
+                                                    // Navigator.pop(context);
+                                                  },
                                                 ),
-                                                onPressed: () {
-                                                  Get.back();
-                                                  // Navigator.pop(context);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                        barrierDismissible: false,
-                                      );
-                                    },
+                                                TextButton(
+                                                  child: Text(
+                                                    "No",
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Get.back();
+                                                    // Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                          barrierDismissible: false,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Visibility(
+                      visible: _controller.products.isNotEmpty,
+                      // visible: snapShot.data.isNotEmpty,
+                      child: Card(
+                        margin: EdgeInsets.all(5),
+                        shadowColor: Colors.blue,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "PRICE DETAILS",
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
+                                ],
+                              ),
+                              Divider(),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Price",
+                                      ),
+                                      Text(
+                                        "₹${calculateTotal(_controller.products)}",
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Discount",
+                                      ),
+                                      Text(
+                                        "-₹${discount(_controller.products)}",
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Delivery Charge",
+                                      ),
+                                      Text(
+                                        "₹${0}",
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total Amount",
+                                  ),
+                                  Text(
+                                    "₹${totalAmount(_controller.products)}",
+                                  )
+                                ],
+                              ),
+                              Divider(),
+                              Row(
+                                children: [
+                                  Text(
+                                    "You saved a total of ₹${discount(_controller.products)}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green,
+                                    ),
+                                  )
                                 ],
                               ),
                             ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Visibility(
-                    visible: snapShot.data.isNotEmpty,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      margin: EdgeInsets.all(5),
-                      shadowColor: Colors.blue,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ///kakku
-                                Text(
-                                  "PRICE DETAILS",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "Akaya Kanadaka",
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Divider(thickness: 2, color: Colors.black),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Price",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "Akaya Kanadaka",
-                                      ),
-                                    ),
-                                    Text(
-                                      "₹${calculateTotal(products)}",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "Akaya Kanadaka",
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Discount",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "Akaya Kanadaka",
-                                      ),
-                                    ),
-                                    Text(
-                                      "-₹${discount(products)}",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.green,
-                                        fontFamily: "Akaya Kanadaka",
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Delivery Charge",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "Akaya Kanadaka",
-                                      ),
-                                    ),
-                                    Text(
-                                      "₹${0}",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "Akaya Kanadaka",
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Divider(thickness: 1, color: Colors.black),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total Amount",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    fontFamily: "Akaya Kanadaka",
-                                  ),
-                                ),
-                                Text(
-                                  "₹${totalAmount(products)}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    fontFamily: "Akaya Kanadaka",
-                                  ),
-                                )
-                              ],
-                            ),
-                            Divider(thickness: 2, color: Colors.black),
-                            Row(
-                              children: [
-                                Text(
-                                  "You saved a total of ₹${discount(products)}",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green,
-                                    fontFamily: "Akaya Kanadaka",
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+                  ],
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -423,14 +389,13 @@ class _CartViewState extends State<CartView> {
             borderRadius: BorderRadius.circular(40),
             child: Container(
               height: 60,
-              color: Colors.yellow,
+              color: Colors.orange,
               child: Center(
                 child: Text(
                   "Proceed to Checkout",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Akaya Kanadaka",
                   ),
                 ),
               ),

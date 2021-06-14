@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:opencommerce/app/modules/home/home-page.dart';
+import 'package:opencommerce/app/modules/product/views/home_page.dart';
 import 'package:opencommerce/app/modules/authentication/sign-in.dart';
 
 class AuthView extends StatelessWidget {

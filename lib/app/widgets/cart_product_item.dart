@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:opencommerce/app/modules/product/product_model.dart';
-import 'package:opencommerce/app/modules/product/views/product-view.dart';
+import 'package:opencommerce/app/modules/product/views/product_view.dart';
 
 // ignore: must_be_immutable
 class CartItem extends StatelessWidget {
