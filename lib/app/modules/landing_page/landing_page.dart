@@ -45,7 +45,7 @@ class LandingPage extends StatelessWidget {
                       return SignIn();
                     } else {
                       //the user is logged in, head to homepage
-                      return HomeView();
+                      return HomePage();
                     }
                   }
 

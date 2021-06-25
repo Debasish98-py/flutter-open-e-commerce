@@ -11,7 +11,6 @@ class ProfileAddEditView extends StatefulWidget {
 }
 
 class _ProfileAddEditViewState extends State<ProfileAddEditView> {
-  /// form key
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -21,24 +20,26 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
       builder: (_controller) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.orange,
             leading: IconButton(
               icon: Icon(Icons.arrow_back_sharp),
               onPressed: () {
                 Get.off(() => ProfileView());
               },
             ),
-            title: Text("Profile"),
+            title: Text("Edit Profile"),
             actions: [
               Builder(
                 builder: (context) => IconButton(
                   icon: Icon(Icons.save),
                   onPressed: () async {
                     var form = _formKey.currentState;
-                    if (form.validate()){
+                    if (form.validate()) {
                       form.save();
                       await _controller.setProfile();
                       Get.off(() => ProfileView());
-                      Get.snackbar("Success!", "Profile updated");
+                      Get.snackbar("Success!", "Profile updated",
+                          backgroundColor: Colors.white);
                     }
                   },
                 ),
@@ -46,6 +47,7 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
             ],
           ),
           body: Container(
+            padding: EdgeInsets.all(14),
             child: Column(
               children: [
                 Expanded(
@@ -57,88 +59,179 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
                         child: ListView(
                           shrinkWrap: true,
                           children: [
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.name : "",
-                              decoration:
-                                  InputDecoration(labelText: "Full Name"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter your name"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.name = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.name
+                                      : "",
+                                  decoration: InputDecoration(
+                                    labelText: "Full Name",
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.person),
+                                  ),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter your name"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.name = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.emailId : "",
-                              decoration:
-                                  InputDecoration(labelText: "Email Id"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter your email Id"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.emailId = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.emailId
+                                      : "",
+                                  decoration: InputDecoration(
+                                    labelText: "Email Id",
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.mail),
+                                  ),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter your email Id"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.emailId = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.mobileNumber : "",
-                              keyboardType: TextInputType.phone,
-                              decoration:
-                                  InputDecoration(labelText: "Mobile Number"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter your mobile number"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.mobileNumber = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.mobileNumber
+                                      : "",
+                                  keyboardType: TextInputType.phone,
+                                  decoration: InputDecoration(
+                                    labelText: "Mobile Number",
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.call),
+                                  ),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter your mobile number"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.mobileNumber = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.addressLine : "",
-                              keyboardType: TextInputType.streetAddress,
-                              decoration:
-                                  InputDecoration(labelText: "Address Line"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter a valid address"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.addressLine = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.addressLine
+                                      : "",
+                                  keyboardType: TextInputType.streetAddress,
+                                  decoration: InputDecoration(
+                                    labelText: "Address Line",
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.add_road),
+                                  ),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter a valid address"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.addressLine = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.landmark : "",
-                              keyboardType: TextInputType.text,
-                              decoration:
-                                  InputDecoration(labelText: "Landmark"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter a Landmark"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.landmark = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.landmark
+                                      : "",
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                      labelText: "Landmark",
+                                      border: InputBorder.none, prefixIcon: Icon(Icons.follow_the_signs),),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter a Landmark"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.landmark = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.city : "",
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(labelText: "City"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter your City"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.city = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.city
+                                      : "",
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                      labelText: "City",
+                                      border: InputBorder.none, prefixIcon: Icon(Icons.location_city),),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter your City"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.city = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.state : "",
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(labelText: "State"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter your state"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.state = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.state
+                                      : "",
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                      labelText: "State",
+                                      border: InputBorder.none, prefixIcon: Icon(Icons.location_pin),),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter your state"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.state = value,
+                                ),
+                                padding: EdgeInsets.all(8),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
-                            TextFormField(
-                              initialValue: val.profile != null ? val.profile.pin : "",
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(labelText: "PIN"),
-                              validator: (value) => value.isEmpty
-                                  ? "Please enter a valid PIN"
-                                  : null,
-                              onSaved: (value) =>
-                                  _controller.profile.pin = value,
+                            Card(
+                              child: Container(
+                                child: TextFormField(
+                                  initialValue: val.profile != null
+                                      ? val.profile.pin
+                                      : "",
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      labelText: "PIN",
+                                      border: InputBorder.none, prefixIcon: Icon(CupertinoIcons.textformat_123),),
+                                  validator: (value) => value.isEmpty
+                                      ? "Please enter a valid PIN"
+                                      : null,
+                                  onSaved: (value) =>
+                                      _controller.profile.pin = value,
+                                ),
+                                padding: EdgeInsets.all(10),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
                           ],
                         ),

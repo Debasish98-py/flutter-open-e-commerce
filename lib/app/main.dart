@@ -1,14 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:opencommerce/app/modules/authentication/sign-in.dart';
-import 'package:opencommerce/app/modules/authentication/sign-up.dart';
-import 'package:opencommerce/app/modules/checkout/checkout_view.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:opencommerce/app/modules/landing_page/landing_page.dart';
-import 'package:opencommerce/app/modules/product/views/home_page.dart';
-import 'package:opencommerce/app/modules/profile/views/profile_add_edit.dart';
 
-void main() {
+void main() async{
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -36,15 +33,6 @@ class _MyAppState extends State<MyApp> {
               child: CircularProgressIndicator(),
             ),
       debugShowCheckedModeBanner: false,
-      routes: {
-        'SignIn': (context) => SignIn(),
-        // 'HomeView': (context) => HomeView(),
-        'SignUp': (context) => SignUp(),
-        'ProfileAddEditView': (context) => ProfileAddEditView(),
-        'CheckoutView': (context) => CheckoutView(),
-
-        // 'ProductAddEdit': (context) => ProductAddEdit(),
-      },
     );
   }
 

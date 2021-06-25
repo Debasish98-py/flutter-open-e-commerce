@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/app/modules/authentication/admin_signIn_view.dart';
-import 'package:opencommerce/app/modules/product/product_model.dart';
-import 'package:opencommerce/app/modules/product/views/product_add_edit.dart';
 
 class AdminAuthView extends StatelessWidget {
   @override
@@ -17,7 +15,6 @@ class AdminAuthView extends StatelessWidget {
           if (user == null) {
             return AdminSignInView();
           } else {
-            // return ProductAddEdit(Product());
             return null;
           }
         }

@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:opencommerce/app/modules/authentication/sign-up.dart';
 import 'package:opencommerce/app/widgets/text-input-field.dart';
 import 'package:opencommerce/app/widgets/widgets.dart';
 
@@ -94,110 +96,92 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        BackgroundImage(image: 'images/bgImage2.jpg'),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    child: Center(
-                      child: Text(
-                        'OpenCommerce',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 55,
-                          fontFamily: 'Akaya Kanadaka',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              "images/huge - Copy.jpg",
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextInputField(
+                icon: FontAwesomeIcons.envelope,
+                hint: 'Email',
+                inputType: TextInputType.emailAddress,
+                inputAction: TextInputAction.next,
+                onChanged: (value) {
+                  _signInEmail = value;
+                },
+              ),
+              PasswordInput(
+                icon: FontAwesomeIcons.lock,
+                hint: 'Password',
+                inputType: TextInputType.name,
+                inputAction: TextInputAction.done,
+                onChanged: (value) {
+                  _signInPassword = value;
+                },
+                focusNode: _passwordFocusNode,
+                onSubmitted: (value) {
+                  _submitForm();
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomBtn(
+                text: "Log In",
+                onPressed: () {
+                  _submitForm();
+                },
+                isLoading: _signInFormLoading,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                child: GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, 'ForgotPassword'),
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      height: 1.5,
                     ),
                   ),
                 ),
-                Column(
-                  /*mainAxisAlignment: MainAxisAlignment.end,*/
-                  children: [
-                    TextInputField(
-                      icon: FontAwesomeIcons.envelope,
-                      hint: 'Email',
-                      inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
-                      onChanged: (value) {
-                        _signInEmail = value;
-                      },
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Colors.white,
                     ),
-                    PasswordInput(
-                      icon: FontAwesomeIcons.lock,
-                      hint: 'Password',
-                      inputType: TextInputType.name,
-                      inputAction: TextInputAction.done,
-                      onChanged: (value) {
-                        _signInPassword = value;
-                      },
-                      focusNode: _passwordFocusNode,
-                      onSubmitted: (value) {
-                        _submitForm();
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CustomBtn(
-                      text: "Log In",
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      isLoading: _signInFormLoading,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ForgotPassword'),
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                GoogleSignIn(),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, 'SignUp'),
-                    child: Text(
-                      'Create New Account',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                      ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              GoogleSignIn(),
+              SizedBox(
+                height: 8
+              ),
+              GestureDetector(
+                child: Container(
+                  child: Text(
+                    'Create New Account',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                   decoration: BoxDecoration(
@@ -209,14 +193,14 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 60,
-                ),
-              ],
-            ),
+                onTap: (){
+                  Get.to(() => SignUp());
+                },
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

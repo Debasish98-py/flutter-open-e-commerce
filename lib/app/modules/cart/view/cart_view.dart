@@ -11,21 +11,32 @@ class CartView extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: Text("My Cart"),
-      ),
-      body: SafeArea(
-        child: Container(
-          child: GetX<CartController>(
-            init: CartController(),
-            builder: (_controller) {
-              if(_controller.products.isEmpty){
-                return Center(child: Container(child: Text("Add products to your cart"),),);
-              }
-              else if (_controller.products.isNotEmpty) {
-                return ListView(
+    return GetX<CartController>(
+      init: CartController(),
+      builder: (_controller) {
+        if (_controller.products.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("My Cart"),
+              backgroundColor: Colors.orange,
+            ),
+            body: SafeArea(
+              child: Center(
+                child: Container(
+                  child: Text("Add products to your cart"),
+                ),
+              ),
+            ),
+          );
+        } else if (_controller.products.isNotEmpty) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("My Cart"),
+              backgroundColor: Colors.orange,
+            ),
+            body: SafeArea(
+              child: Container(
+                child: ListView(
                   children: [
                     ListView.builder(
                       shrinkWrap: true,
@@ -48,9 +59,7 @@ class CartView extends GetView<CartController> {
                                       flex: 2,
                                       child: GestureDetector(
                                         onTap: () {
-                                          Get.to(
-                                            () => ProductView(product),
-                                          );
+                                          Get.to(() => ProductView());
                                         },
                                         child: Column(
                                           mainAxisAlignment:
@@ -61,31 +70,24 @@ class CartView extends GetView<CartController> {
                                             Text(
                                               product.shortName ?? '',
                                               style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600
-                                              ),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600),
                                             ),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
+                                            SizedBox(height: 8),
                                             Text(
                                               'Seller:',
                                               style: TextStyle(
                                                 color: Colors.grey,
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
+                                            SizedBox(height: 8),
                                             Text(
                                               'Rating:',
                                               style: TextStyle(
                                                 color: Colors.grey,
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 12,
-                                            ),
+                                            SizedBox(height: 12),
                                             Row(
                                               children: [
                                                 Text(
@@ -96,9 +98,7 @@ class CartView extends GetView<CartController> {
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
-                                                SizedBox(
-                                                  width: 8,
-                                                ),
+                                                SizedBox(width: 8),
                                                 Text(
                                                   "-₹${product.discount}",
                                                   style: TextStyle(
@@ -107,9 +107,7 @@ class CartView extends GetView<CartController> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(
-                                              height: 12,
-                                            ),
+                                            SizedBox(height: 12),
                                             Text(
                                               'Delivery by:',
                                               style: TextStyle(
@@ -152,15 +150,12 @@ class CartView extends GetView<CartController> {
                                             size: 15,
                                             color: Colors.blue,
                                           ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
+                                          SizedBox(width: 5),
                                           Text(
                                             "ADD TO WISHLIST",
                                             style: TextStyle(
                                               color: Colors.blue,
-                                                // fontSize: 17,
-                                                ),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -178,15 +173,12 @@ class CartView extends GetView<CartController> {
                                               size: 15,
                                               color: Colors.red,
                                             ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
+                                            SizedBox(width: 5),
                                             Text(
                                               "REMOVE",
                                               style: TextStyle(
                                                 color: Colors.red,
-                                                  // fontSize: 17,
-                                                  ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -212,15 +204,11 @@ class CartView extends GetView<CartController> {
                                               actionsPadding: EdgeInsets.all(1),
                                               title: Text(
                                                 "Delete product",
-                                                style: TextStyle(
-                                                    fontSize: 22,
-                                                    ),
+                                                style: TextStyle(fontSize: 22),
                                               ),
                                               content: Text(
                                                 "Are you sure you want to remove the item?",
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                ),
+                                                style: TextStyle(fontSize: 18),
                                               ),
                                               actions: [
                                                 TextButton(
@@ -228,7 +216,8 @@ class CartView extends GetView<CartController> {
                                                     "Yes",
                                                     style: TextStyle(
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Colors.red,
                                                     ),
                                                   ),
@@ -246,12 +235,12 @@ class CartView extends GetView<CartController> {
                                                     "No",
                                                     style: TextStyle(
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                   onPressed: () {
                                                     Get.back();
-                                                    // Navigator.pop(context);
                                                   },
                                                 ),
                                               ],
@@ -271,7 +260,6 @@ class CartView extends GetView<CartController> {
                     ),
                     Visibility(
                       visible: _controller.products.isNotEmpty,
-                      // visible: snapShot.data.isNotEmpty,
                       child: Card(
                         margin: EdgeInsets.all(5),
                         shadowColor: Colors.blue,
@@ -300,24 +288,17 @@ class CartView extends GetView<CartController> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
+                                      Text("Price"),
                                       Text(
-                                        "Price",
-                                      ),
-                                      Text(
-                                        "₹${calculateTotal(_controller.products)}",
-                                      )
+                                          "₹${calculateTotal(_controller.products)}")
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
+                                  SizedBox(height: 8),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Discount",
-                                      ),
+                                      Text("Discount"),
                                       Text(
                                         "-₹${discount(_controller.products)}",
                                         style: TextStyle(
@@ -326,33 +307,24 @@ class CartView extends GetView<CartController> {
                                       )
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
+                                  SizedBox(height: 8),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Delivery Charge",
-                                      ),
-                                      Text(
-                                        "₹${0}",
-                                      )
+                                      Text("Delivery Charge"),
+                                      Text("₹${0}")
                                     ],
                                   ),
                                 ],
                               ),
                               Divider(),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Total Amount",
-                                  ),
-                                  Text(
-                                    "₹${totalAmount(_controller.products)}",
-                                  )
+                                  Text("Total Amount"),
+                                  Text("₹${totalAmount(_controller.products)}")
                                 ],
                               ),
                               Divider(),
@@ -373,39 +345,38 @@ class CartView extends GetView<CartController> {
                       ),
                     ),
                   ],
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: GestureDetector(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: Container(
-              height: 60,
-              color: Colors.orange,
-              child: Center(
-                child: Text(
-                  "Proceed to Checkout",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
                 ),
               ),
             ),
-          ),
-          onTap: () {
-            Get.to(() => CheckoutView());
-          },
-        ),
-      ),
+            bottomNavigationBar: BottomAppBar(
+              child: GestureDetector(
+                child: Container(
+                  height: 60,
+                  color: Colors.orange,
+                  child: Center(
+                    child: Text(
+                      "Proceed to Checkout",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo,
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(() => CheckoutView(),
+                      arguments: totalAmount(_controller.products));
+                },
+              ),
+            ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 

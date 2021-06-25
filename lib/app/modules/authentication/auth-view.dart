@@ -16,7 +16,7 @@ class AuthView extends StatelessWidget {
           if (user == null) {
             return SignIn();
           } else {
-            return HomeView();
+            return HomePage();
           }
         }
       },

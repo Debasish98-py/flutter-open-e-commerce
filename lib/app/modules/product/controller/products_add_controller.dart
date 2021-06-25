@@ -14,6 +14,5 @@ class AddProductController extends GetxController{
       }catch(e){
         Get.snackbar("Error", "Something went wrong!");
       }
-
   }
 }

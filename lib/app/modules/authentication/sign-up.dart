@@ -98,69 +98,54 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        BackgroundImage(image: 'images/bgImage2.jpg'),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Column(
-              children: [
-                Flexible(
-                  child: Center(
-                    child: Text(
-                      'Fast-Buy',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 60,
-                        fontFamily: 'Akaya Kanadaka',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Column(
-                  /*mainAxisAlignment: MainAxisAlignment.end,*/
-                  children: [
-                    TextInputField(
-                      icon: FontAwesomeIcons.envelope,
-                      hint: 'Email',
-                      inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
-                      onChanged: (value) {
-                        _registerEmail = value;
-                      },
-                    ),
-                    PasswordInput(
-                        icon: FontAwesomeIcons.lock,
-                        hint: 'Password',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.done,
-                        onChanged: (value) {
-                          _registerPassword = value;
-                        },
-                        focusNode: _passwordFocusNode,
-                        onSubmitted: (value) {
-                          _submitForm();
-                        }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CustomBtn(
-                      text: "Sign Up",
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      isLoading: _signUpFormLoading,
-                    ),
-                  ],
-                ),
-                Spacer(),
-              ],
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/huge - Copy.jpg"),
+            fit: BoxFit.cover,
           ),
         ),
-      ],
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextInputField(
+                icon: FontAwesomeIcons.envelope,
+                hint: 'Email',
+                inputType: TextInputType.emailAddress,
+                inputAction: TextInputAction.next,
+                onChanged: (value) {
+                  _registerEmail = value;
+                },
+              ),
+              PasswordInput(
+                  icon: FontAwesomeIcons.lock,
+                  hint: 'Password',
+                  inputType: TextInputType.name,
+                  inputAction: TextInputAction.done,
+                  onChanged: (value) {
+                    _registerPassword = value;
+                  },
+                  focusNode: _passwordFocusNode,
+                  onSubmitted: (value) {
+                    _submitForm();
+                  }),
+              SizedBox(
+                height: 10,
+              ),
+              CustomBtn(
+                text: "Sign Up",
+                onPressed: () {
+                  _submitForm();
+                },
+                isLoading: _signUpFormLoading,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

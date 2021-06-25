@@ -12,6 +12,7 @@ class _ProductAddEditState extends State<ProductAddEdit> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: GetBuilder<AddProductController>(
+        init: AddProductController(),
         builder: (_controller) {
           return Scaffold(
             appBar: AppBar(

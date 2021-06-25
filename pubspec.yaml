@@ -31,12 +31,13 @@ dependencies:
   get:
   email_auth:
   image_picker:
-  youtube_player_flutter:
-  cupertino_icons: ^1.0.0
-  font_awesome_flutter: ^8.10.0
-  google_fonts: ^1.1.1
-  adobe_xd:
+  cupertino_icons:
+  font_awesome_flutter:
+  google_fonts:
   flutter_slidable:
+  razorpay_flutter:
+  get_storage:
+
 
 
 dev_dependencies:

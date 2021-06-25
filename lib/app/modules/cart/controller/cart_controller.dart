@@ -8,8 +8,8 @@ class CartController extends GetxController{
 
   @override
   void onInit() {
+    // Binds the existing Stream<T> to the Rx<T> to keep the values in sync.
     _product.bindStream(CartService().getCartStream());
     super.onInit();
   }
 }
-
