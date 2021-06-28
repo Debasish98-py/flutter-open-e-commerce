@@ -38,7 +38,7 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
                       form.save();
                       await _controller.setProfile();
                       Get.off(() => ProfileView());
-                      Get.snackbar("Success!", "Profile updated",
+                      Get.snackbar("Success!", "Profile updated successfully",
                           backgroundColor: Colors.white);
                     }
                   },
@@ -93,8 +93,8 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
                                     prefixIcon: Icon(Icons.mail),
                                   ),
                                   validator: (value) => value.isEmpty
-                                      ? "Please enter your email Id"
-                                      : null,
+                                      ? "Please enter your Email Id"
+                                      : value.isValidEmail() ? null : "Please enter a valid Email",
                                   onSaved: (value) =>
                                       _controller.profile.emailId = value,
                                 ),
@@ -245,5 +245,12 @@ class _ProfileAddEditViewState extends State<ProfileAddEditView> {
         );
       },
     );
+  }
+}
+extension EmailValidator on String {
+  bool isValidEmail() {
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
   }
 }

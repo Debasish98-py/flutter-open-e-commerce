@@ -145,32 +145,31 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                child: GestureDetector(
-                  onTap: () =>
-                      Navigator.pushNamed(context, 'ForgotPassword'),
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 1,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   child: GestureDetector(
+              //     onTap: () =>
+              //         Navigator.pushNamed(context, 'ForgotPassword'),
+              //     child: Text(
+              //       'Forgot Password?',
+              //       style: TextStyle(
+              //         fontSize: 18,
+              //         color: Colors.white,
+              //         height: 1.5,
+              //       ),
+              //     ),
+              //   ),
+              //   decoration: BoxDecoration(
+              //     border: Border(
+              //       bottom: BorderSide(
+              //         width: 1,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 10,
               ),
-              GoogleSignIn(),
               SizedBox(
                 height: 8
               ),
