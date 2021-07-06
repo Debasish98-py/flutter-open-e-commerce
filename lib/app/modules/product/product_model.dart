@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 Product productFromMap(String str) => Product.fromMap(json.decode(str));
 
 String productToMap(Product data) => json.encode(data.toMap());
@@ -16,6 +17,7 @@ class Product {
     this.manufacturer,
     this.inStock,
     this.discount,
+    this.keywords,
   });
 
   String id;
@@ -28,6 +30,8 @@ class Product {
   String manufacturer;
   bool inStock;
   num discount;
+  List keywords;
+
 
   Product copyWith({
     String id,
@@ -40,6 +44,7 @@ class Product {
     String manufacturer,
     bool inStock,
     num discount,
+    List keywords,
   }) =>
       Product(
         id: id ?? this.id,
@@ -52,6 +57,7 @@ class Product {
         manufacturer: manufacturer ?? this.manufacturer,
         inStock: inStock ?? this.inStock,
         discount: discount ?? this.discount,
+        keywords: keywords ?? this.keywords,
       );
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
@@ -66,6 +72,7 @@ class Product {
             json["manufacturer"] == null ? null : json["manufacturer"],
         inStock: json["inStock"] == null ? null : json["inStock"],
         discount: json["discount"] == null ? null : json["discount"],
+        keywords: json["keywords"] == null ? null : json["keywords"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -79,5 +86,6 @@ class Product {
         "manufacturer": manufacturer == null ? null : manufacturer,
         "inStock": inStock == null ? null : inStock,
         "discount": discount == null ? null : discount,
+        "keywords": keywords == null ? null : keywords,
       };
 }

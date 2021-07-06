@@ -9,6 +9,7 @@ import 'package:opencommerce/app/modules/product/controller/product_controller.d
 import 'package:opencommerce/app/modules/product/product_model.dart';
 import 'package:opencommerce/app/modules/product/views/product_view.dart';
 import 'package:opencommerce/app/widgets/custom_appDrawer/appDrawer.dart';
+import 'package:opencommerce/app/widgets/search_bar/view/search_bar.dart';
 
 class HomePage extends GetView<ProductsController> {
   @override
@@ -33,19 +34,7 @@ class HomePage extends GetView<ProductsController> {
         bottom: PreferredSize(
           child: Padding(
             padding: EdgeInsets.all(8),
-            child: Container(
-              color: Colors.white,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintStyle: TextStyle(
-                    fontSize: 15,
-                  ),
-                  prefixIcon: Icon(Icons.search),
-                  hintText: "Search for products",
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            child: SearchBar(),
           ),
           preferredSize: Size.fromHeight(60),
         ),
@@ -85,7 +74,8 @@ class HomePage extends GetView<ProductsController> {
                                       width: width * 0.05,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           product.shortName,
@@ -109,7 +99,8 @@ class HomePage extends GetView<ProductsController> {
                                         Text(
                                           "-₹${product.discount}",
                                           style: TextStyle(
-                                              fontSize: 15, color: Colors.green),
+                                              fontSize: 15,
+                                              color: Colors.green),
                                         ),
                                       ],
                                     ),
@@ -133,7 +124,7 @@ class HomePage extends GetView<ProductsController> {
                             ),
                           ],
                         ),
-                        onTap: (){
+                        onTap: () {
                           Get.to(() => ProductView(), arguments: product);
                         },
                       ),

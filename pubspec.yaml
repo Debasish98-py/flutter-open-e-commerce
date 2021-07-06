@@ -37,6 +37,8 @@ dependencies:
   flutter_slidable:
   razorpay_flutter:
   get_storage:
+  http:
+  firestore_search:
 
 
 

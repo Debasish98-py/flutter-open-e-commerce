@@ -265,7 +265,9 @@ class CheckoutView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onTap: () {
+                  onTap: () async{
+                    await pay.getOrderId();
+                    await pay.getOptions();
                     pay.openPayment();
                   },
                 ),

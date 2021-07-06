@@ -105,6 +105,16 @@ class _ProductAddEditState extends State<ProductAddEdit> {
                       ),
                       onSaved: (value) => _controller.product.manufacturer = value,
                     ),
+                    TextFormField(
+                      initialValue: "",
+                      decoration: InputDecoration(
+                        labelText: "Tags(separate tags using a comma)",
+                      ),
+                      onSaved: (value) {
+                        var val = value.split(',');
+                        _controller.product.keywords = val;
+                      },
+                    ),
                   ],
                 ),
               ),
